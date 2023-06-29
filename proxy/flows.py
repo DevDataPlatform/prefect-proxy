@@ -7,8 +7,10 @@ from prefect_airbyte.flows import run_connection_sync
 from prefect_airbyte import AirbyteConnection
 from prefect_dbt.cli.commands import DbtCoreOperation
 from logger import logger
+from .alert import alert_on_failure
 
 
+@alert_on_failure
 @flow
 def run_airbyte_connection_flow(block_name: str):
     """Prefect flow to run airbyte connection"""
