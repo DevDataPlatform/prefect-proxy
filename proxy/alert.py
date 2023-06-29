@@ -87,10 +87,10 @@ def alert_on_failure(block_name: str):
                 return_state = kwargs.pop("return_state", None)
                 state: prefect.State = await flow(*args, return_state=True, **kwargs)
 
+                send_email_message()
                 if state.is_failed():
                     message = str(state)
                     # sendgrid api client
-                    send_email_message()
                 if return_state:
                     return state
                 else:
@@ -104,10 +104,10 @@ def alert_on_failure(block_name: str):
                 """A wrapper of a sync task/flow"""
                 return_state = kwargs.pop("return_state", None)
                 state: prefect.State = flow(*args, return_state=True, **kwargs)
+                send_email_message()
                 if state.is_failed():
                     message = str(state)
                     # sendgrid api client
-                    send_email_message()
                 if return_state:
                     return state
                 else:
